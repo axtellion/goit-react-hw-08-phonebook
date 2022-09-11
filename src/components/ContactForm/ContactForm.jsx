@@ -11,8 +11,8 @@ import {
 import * as yup from 'yup';
 import { Box } from 'components/Box';
 import { BiPlus } from 'react-icons/bi';
-import { useFetchContactsQuery } from 'redux/contactsApi';
-import { useAddContactMutation } from 'redux/contactsApi';
+import { useFetchContactsQuery } from 'redux/contacts/contactsApi';
+import { useAddContactMutation } from 'redux/contacts/contactsApi';
 import { toast } from 'react-toastify';
 const values = { name: '', number: '' };
 
@@ -31,12 +31,14 @@ export const ContactForm = () => {
   const [addContact] = useAddContactMutation();
   const { data: contacts } = useFetchContactsQuery();
   const handleSubmit = (values, { resetForm }) => {
-    const errorName = contacts.find(contact => contact.name === values.name);
+    let errorName = '';
+    if (contacts) {
+      errorName = contacts.find(contact => contact.name === values.name);
+    }
     if (errorName) {
       toast.error('This contact is already added');
       return;
     }
-
     addContact(values);
     resetForm();
   };

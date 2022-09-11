@@ -7,9 +7,9 @@ import { ContactList } from '../../components/ContactList/ContactList';
 import { Loader } from '../../components/Loader/loader';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useFetchContactsQuery } from 'redux/contactsApi';
+import { useFetchContactsQuery } from 'redux/contacts/contactsApi';
 
-export const ContactPages = () => {
+const ContactPages = () => {
   const { data: contacts, isFetching } = useFetchContactsQuery();
 
   const contactList = contacts && <ContactList contacts={contacts} />;
@@ -24,3 +24,5 @@ export const ContactPages = () => {
     </>
   );
 };
+
+export default ContactPages;

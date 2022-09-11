@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FiTrash2 } from 'react-icons/fi';
 
 import { useSelector } from 'react-redux';
-import { useDeleteContactMutation } from 'redux/contactsApi';
+import { useDeleteContactMutation } from 'redux/contacts/contactsApi';
 
 export const ContactList = ({ contacts }) => {
   const [deleteContact] = useDeleteContactMutation();
