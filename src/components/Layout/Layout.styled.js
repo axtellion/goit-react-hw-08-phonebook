@@ -43,6 +43,4 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
-export const Text = styled.h2`
-  color: white;
-`;
+export const Text = styled.h2``;
