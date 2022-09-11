@@ -11,9 +11,12 @@ import {
 import * as yup from 'yup';
 import { Box } from 'components/Box';
 import { BiPlus } from 'react-icons/bi';
-import { useFetchContactsQuery } from 'redux/contacts/contactsApi';
-import { useAddContactMutation } from 'redux/contacts/contactsApi';
+import {
+  useFetchContactsQuery,
+  useAddContactMutation,
+} from 'redux/contacts/contactsApi';
 import { toast } from 'react-toastify';
+
 const values = { name: '', number: '' };
 
 const phoneRegExp =

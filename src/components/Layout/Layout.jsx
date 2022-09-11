@@ -1,10 +1,8 @@
 import { Box } from 'components/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { authSelectors } from 'redux/auth';
-import { authOperations } from 'redux/auth';
+import { authSelectors, authOperations } from 'redux/auth';
 import { Logo, Button, Wrap, Container, Link, Text } from './Layout.styled';
-import { useLocation } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 
 export const Layout = () => {
   const dispatch = useDispatch();
@@ -34,7 +32,9 @@ export const Layout = () => {
           <NavLink to="/">
             <Logo>Phonebook</Logo>
           </NavLink>
-          {isLoggedIn && <Link to="/contacts">Contacts</Link>}
+          {isLoggedIn && location.pathname === '/' && (
+            <Link to="/contacts">Contacts</Link>
+          )}
         </Box>
         <Wrap>
           {!isLoggedIn && (
