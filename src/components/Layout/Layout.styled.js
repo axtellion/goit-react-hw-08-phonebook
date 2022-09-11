@@ -22,6 +22,11 @@ export const Link = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  :hover,
+  :focus {
+    color: #7fffd4;
+  }
 `;
 
 export const Button = styled.button`
@@ -33,6 +38,11 @@ export const Button = styled.button`
   color: white;
   background-color: transparent;
   cursor: pointer;
+
+  :hover,
+  :focus {
+    color: #7fffd4;
+  }
 `;
 
 export const Wrap = styled.div`
