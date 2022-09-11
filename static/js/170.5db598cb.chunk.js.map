@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/170.5db598cb.chunk.js","mappings":"mMAAaA,EAAY,WACvB,OACE,0BACE","sources":["pages/HomePages/HomePages.jsx"],"sourcesContent":["export const HomePages = () => {\n  return (\n    <div>\n      <h1>Дoбро пожаловать на страницу</h1>\n    </div>\n  );\n};\n"],"names":["HomePages"],"sourceRoot":""}

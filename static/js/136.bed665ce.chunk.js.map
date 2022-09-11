@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/136.bed665ce.chunk.js","mappings":"yLAAO,IAAMA,EAAgB","sources":["pages/RegisterPages/RegisterPages.jsx"],"sourcesContent":["export const RegisterPages = () => {};\n"],"names":["RegisterPages"],"sourceRoot":""}
