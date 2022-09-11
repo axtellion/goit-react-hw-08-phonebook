@@ -1,46 +1,64 @@
+import { lazy, Suspense } from 'react';
 import { Box } from './Box';
-
-import { Title, WrapList } from './App.styled';
-import { GlobalStyle } from './GlobalStyle';
-
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
+// import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
+// import { authOperations, authSelectors } from '../redux/auth';
+import { PrivateRoute } from './UserMenu/PrivateRoute';
+import { PublicRoute } from './UserMenu/PublicRoute';
 import { Layout } from './Layout/Layout';
-import { Loader } from './Loader/loader';
+import { GlobalStyle } from './GlobalStyle';
+import { ToastContainer } from 'react-toastify';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import { useAddContactMutation } from 'redux/contactsApi';
-import { useFetchContactsQuery } from 'redux/contactsApi';
+const HomePage = lazy(() => import('pages/HomePages/HomePages'));
+const ContactsPage = lazy(() => import('pages/ContactPages/ContactPages'));
+const LoginPage = lazy(() => import('pages/LoginPages/LoginPages'));
+const RegisterPage = lazy(() => import('pages/RegisterPages/RegisterPages'));
 
 export const App = () => {
-  const [addContact] = useAddContactMutation();
-  const { data: contacts, isFetching } = useFetchContactsQuery();
-
-  const addContacts = ({ name, number }) => {
-    const errorName = contacts.find(contact => contact.name === name);
-    if (errorName) {
-      toast.error('This contact is already added');
-      return;
-    }
-
-    const contact = { name, number };
-    addContact(contact);
-  };
-
-  console.log(isFetching);
-  const contactList = contacts && <ContactList contacts={contacts} />;
+  // const dispatch = useDispatch();
+  // const isRefreshing = useSelector(authSelectors.getIsFetchingCurrent);
+  // useEffect(() => {
+  //   dispatch(authOperations.fetchCurrentUser());
+  // }, [dispatch]);
   return (
     <Box as="main" width="1024px" mx="auto" pb="50px">
       <Layout />
-      <ContactForm onSubmit={addContacts} />
-      <WrapList>
-        <Title>Contacts</Title>
-        <Filter />
-        {isFetching === true ? <Loader /> : contactList}
-      </WrapList>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <HomePage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <ContactsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <RegisterPage />
+              </PublicRoute>
+            }
+          />
+        </Routes>
+      </Suspense>
       <ToastContainer theme="colored" autoClose={3000} />
       <GlobalStyle />
     </Box>

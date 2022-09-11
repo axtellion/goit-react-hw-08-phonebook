@@ -1,5 +1,4 @@
 import { Formik, ErrorMessage } from 'formik';
-import PropTypes from 'prop-types';
 import {
   Title,
   Text,
@@ -12,7 +11,9 @@ import {
 import * as yup from 'yup';
 import { Box } from 'components/Box';
 import { BiPlus } from 'react-icons/bi';
-
+import { useFetchContactsQuery } from 'redux/contactsApi';
+import { useAddContactMutation } from 'redux/contactsApi';
+import { toast } from 'react-toastify';
 const values = { name: '', number: '' };
 
 const phoneRegExp =
@@ -26,10 +27,17 @@ const schema = yup.object().shape({
     .required(),
 });
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const [addContact] = useAddContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
   const handleSubmit = (values, { resetForm }) => {
-    const contactValue = values;
-    onSubmit(contactValue);
+    const errorName = contacts.find(contact => contact.name === values.name);
+    if (errorName) {
+      toast.error('This contact is already added');
+      return;
+    }
+
+    addContact(values);
     resetForm();
   };
 
@@ -73,8 +81,4 @@ export const ContactForm = ({ onSubmit }) => {
       </Formik>
     </Box>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
