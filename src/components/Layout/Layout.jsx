@@ -2,7 +2,7 @@ import { Box } from 'components/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth';
 import { authOperations } from 'redux/auth';
-import { Logo, Button, Wrap, Container, Text, Link } from './Layout.styled';
+import { Logo, Button, Wrap, Container, Link, Text } from './Layout.styled';
 import { useLocation } from 'react-router-dom';
 
 export const Layout = () => {
@@ -29,7 +29,7 @@ export const Layout = () => {
           )}
           {isLoggedIn && (
             <>
-              <Text>{name}</Text>
+              {isLoggedIn && <Text>{name}</Text>}
               <Button onClick={() => dispatch(authOperations.logOut())}>
                 Log Out
               </Button>
