@@ -4,6 +4,7 @@ import { authSelectors } from 'redux/auth';
 import { authOperations } from 'redux/auth';
 import { Logo, Button, Wrap, Container, Link, Text } from './Layout.styled';
 import { useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Layout = () => {
   const dispatch = useDispatch();
@@ -11,21 +12,33 @@ export const Layout = () => {
   const name = useSelector(authSelectors.getUsername);
 
   const location = useLocation();
+
+  const login =
+    location.pathname === '/login' ? (
+      <Link to="/register">Register</Link>
+    ) : (
+      <Link to="/login">Login</Link>
+    );
+
+  const RegisterLogin = (
+    <>
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
+    </>
+  );
+
   return (
-    <Box as="header" bg="#00BFFF" py={10} px={3} mb="100px">
+    <Box as="header" bg="#00BFFF" py={10} px={3} mb="50px">
       <Container>
-        <a href="/">
-          <Logo>Phonebook</Logo>
-        </a>
+        <Box display="flex">
+          <NavLink to="/">
+            <Logo>Phonebook</Logo>
+          </NavLink>
+          {isLoggedIn && <Link to="/contacts">Contacts</Link>}
+        </Box>
         <Wrap>
           {!isLoggedIn && (
-            <>
-              {location.pathname === '/login' ? (
-                <Link to="/register">Register</Link>
-              ) : (
-                <Link to="/login">Login</Link>
-              )}
-            </>
+            <>{location.pathname === '/' ? RegisterLogin : login}</>
           )}
           {isLoggedIn && (
             <>

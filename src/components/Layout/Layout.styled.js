@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Logo = styled.h2`
   color: white;
+  margin-right: 40px;
   :hover {
     color: #7fffd4;
   }
@@ -31,6 +32,7 @@ export const Button = styled.button`
 
   color: white;
   background-color: transparent;
+  cursor: pointer;
 `;
 
 export const Wrap = styled.div`

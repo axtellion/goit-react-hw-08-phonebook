@@ -14,6 +14,7 @@ const HomePage = lazy(() => import('pages/HomePages/HomePages'));
 const ContactsPage = lazy(() => import('../pages/ContactPages/ContactPages'));
 const LoginPage = lazy(() => import('pages/LoginPages/LoginPages'));
 const RegisterPage = lazy(() => import('pages/RegisterPages/RegisterPages'));
+const Error = lazy(() => import('pages/Error/Error'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ export const App = () => {
                 </PublicRoute>
               }
             />
+            <Route path="*" element={<Error />} />
           </Routes>
         </Suspense>
         <ToastContainer theme="colored" autoClose={3000} />
